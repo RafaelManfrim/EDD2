@@ -1,74 +1,3 @@
-//#include <stdio.h>
-//
-//int v[10] = {7, 8, 1, 4, 5, 9, 0, 3, 2, 6};
-//
-//void print() {
-//    int i;
-//    for (i=0; i<10; i++)
-//        printf("%d ",v[i]);
-//    printf("\n");
-//}
-//
-//int partition(int lo, int hi, int asc) {
-//    int i, j, pivot, aux;
-//    int flag=1;
-//
-//    pivot = v[(hi + lo)/2];
-//    i = lo-1;
-//    j = hi+1;
-//
-//    while (flag==1) {
-//        if (asc) {
-//            do {
-//                i=i+1;
-//            } while (v[i] < pivot);
-//            do {
-//                j=j-1;
-//            } while (v[j] > pivot);
-//        } else {
-//            do {
-//                i=i+1;
-//            } while (v[i] > pivot);
-//            do {
-//                j=j-1;
-//            } while (v[j] < pivot);
-//        }
-//
-//        if (i>=j)
-//            return j;
-//
-//        aux = v[i];
-//        v[i] = v[j];
-//        v[j] = aux;
-//    }
-//}
-//
-//void quicksort(int lo, int hi, int asc) {
-//    int p;
-//
-//    if (lo>=hi)
-//        return;
-//
-//    print();
-//
-//    p = partition(lo, hi, asc);
-//
-//    printf("Posição do PIVÔ: %d\n\n", p);
-//
-//    quicksort(lo, p, asc);
-//    quicksort(p+1, hi, asc);
-//}
-//
-//int main() {
-//    printf("Vetor inicial: ");
-//    print();
-//
-//    quicksort(0,9,1);
-//
-//    printf("Vetor final: ");
-//    print();
-//}
-
 #include <iostream>
 using namespace std;
 
@@ -90,7 +19,7 @@ void imprimeArray(int arr[], int tamanho) {
     cout << endl;
 }
 
-// Função para realizar o particionamento
+// Função para realizar o particionamento e posicionar o pivô na posição correta
 int particiona(int arr[], int baixo, int alto) {
     int pivo = arr[alto];  // Pegamos o último elemento como pivô
     int i = baixo - 1;     // Índice do menor elemento
@@ -109,7 +38,7 @@ int particiona(int arr[], int baixo, int alto) {
 // Função principal do QuickSort
 void quickSort(int arr[], int baixo, int alto) {
     if (baixo < alto) {
-        // partiçãoIndex é o índice de onde o pivô está agora
+        // partiçãoIndex é o índice de onde o pivô foi colocado
         int particaoIndex = particiona(arr, baixo, alto);
 
         imprimeArray(arr, tamanho);
