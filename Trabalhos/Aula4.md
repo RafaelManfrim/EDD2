@@ -20,44 +20,30 @@
 
 #### Insertion Sort
 
-```
-void insertionSort(int V[], int n) {
-    int j, chave;
-    for(int i = 1; i < n; i++) {
-        chave = V[i];
-        j = i - 1;
-        while(j >= 0 && V[j] > chave) {
-            V[j + 1] = V[j];
-            j = j - 1;
-        }
-        V[j + 1] = chave;
-    }
-}
-```
-
-Exemplo: {6, 5, 3, 1, 8, 7, 2, 4}.
 #### (1) Determine a sua complexidade de tempo no pior caso utilizando a notação-O.
 
 ```
-
+O pior caso se daria por N verificações e N - 1 trocas, ou seja N * (N - 1) / 2 seguindo a fórmula da soma de uma P.A.
+Fazendo com que Soma = (N² - N) / 2, ignorando os termos de ordem inferior, a complexidade de tempo no pior caso é O(N²).
 ```
 
 #### (1.1) Qual seria a propriedade da instância onde teríamos o pior caso?
 
 ```
-
+O pior caso ocorre quando o vetor está ordenado de forma decrescente e o algoritmo faz a troca de todos os elementos com todos os elementos anteriores.
 ```
 
 #### (2) Determine a sua complexidade de tempo no melhor caso utilizando a notação-O.
 
 ```
-
+No melhor caso, o algoritmo faz N - 1 comparações e nenhuma troca, ou seja, O(N), o que é um ótimo resultado, mas não possui sentido prático, pois em raríssimos
+casos o algoritmo iria executar com o vetor já ordenado.
 ```
 
 #### (2.1) Qual seria a propriedade da instância onde teríamos o melhor caso?
 
 ```
-
+O melhor caso ocorre quando o vetor já está ordenado em ordem crescente, não sendo necessário fazer nenhuma troca.
 ```
 
 #### (1) A animação representa perfeitamente o algoritmo apresentado do Merge Sort? Justifique sua resposta.
@@ -72,28 +58,67 @@ Exemplo: {6, 5, 3, 1, 8, 7, 2, 4}.
 
 ```
 
+#### Bubble Sort
+
 #### (3) O Bubble Sort é um algoritmo simples de ordenação que percorre uma lista, comparando pares de elementos adjacentes e trocando-os se estiverem na ordem errada. O processo é repetido até que a lista esteja ordenada. Implemente o algoritmo Bubble Sort. Mais detalhes do algoritmo no último slide.
 
-```
+```c++
+#include <iostream>
 
+using namespace std;
+
+void bubble_sort(int vetor[], int tamanho) {
+    for(int i = 0; i < tamanho - 1; i++) {
+        for(int j = 0; j < tamanho - i - 1; j++) {
+            if(vetor[j] > vetor[j+1]) {
+                int temp = vetor[j];
+                vetor[j] = vetor[j+1];
+                vetor[j+1] = temp;
+            }
+        }
+    }
+}
+
+void imprime_vetor(int vetor[], int tamanho) {
+    for(int i = 0; i < tamanho; i++) {
+        cout << vetor[i] << " ";
+    }
+}
+
+int main() {
+    int vetor[] = {5, 2, 9, 1, 4, 6};
+    int tamanho_vetor = 6;
+
+    imprime_vetor(vetor, tamanho_vetor);
+
+    cout << endl;
+
+    bubble_sort(vetor, tamanho_vetor);
+
+    imprime_vetor(vetor, tamanho_vetor);
+
+    return 0;
+}
 ```
 
 #### (4) Determine a complexidade de tempo do Bubble Sort no pior caso e no melhor caso utilizando a notação-O.
 
 ```
-
+Assim como no Insertion Sort, o Bubble Sort também tem seu pior caso como O(n²), pois precisará andar por todo o vetor e realizar N - 1 trocas, ou seja, N(N - 1) / 2, resultando em (N² - N) / 2. O melhor caso também é O(n), quando não for necessário fazer nenhuma troca.
 ```
 
 #### (5) Qual o melhor caso para o Bubble Sort? Por quê? Qual o pior caso? Por quê?
 
 ```
-
+O melhor caso seria quando o vetor já estivesse ordenado, pois seria necessário apenas percorrer ele fazendo verificações, sem realizar trocas, ou seja O(n). Já o pior caso ocorre quando o vetor está ordenado em ordem inversa, pois seria necessário realizar N - 1 trocas para cada N.
 ```
 
 #### (6) Por que o Bubble Sort geralmente é considerado menos eficiente que o Insertion Sort?
 
 ```
-
+O Bubble Sort tem como característica sempre realizar as comparações, e realizar trocas à mais do
+que o Insertion Sort, pois após posicionar no local correto, o Insertion Sort não verifica e realiza
+trocas com os elementos que ele sabe que já estão posicionados na posição correta.
 ```
 
 #### (7) Em quais situações o Merge Sort é preferível ao Insertion Sort e ao Bubble Sort?
