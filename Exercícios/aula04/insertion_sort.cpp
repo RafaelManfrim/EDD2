@@ -2,19 +2,6 @@
 
 using namespace std;
 
-//void insertionSort(int V[], int n) {
-//    int j, chave;
-//    for(int i = 1; i < n; i++) {
-//        chave = V[i];
-//        j = i - 1;
-//        while(j >= 0 && V[j] > chave) {
-//            V[j + 1] = V[j];
-//            j = j - 1;
-//        }
-//        V[j + 1] = chave;
-//    }
-//}
-
 void insertion_sort(int vetor[], int tamanho) {
     for (int i = 0; i < tamanho - 1; i++) {
         int chave = vetor[i + 1];
@@ -28,7 +15,6 @@ void insertion_sort(int vetor[], int tamanho) {
         vetor[j + 1] = chave;
     }
 }
-
 
 int main() {
     int vetor[] = {5, 2, 4, 6, 1, 3};
