@@ -17,7 +17,10 @@ void Merge(int V[], int inicio, int meio, int fim, int &trocas, int &comparacoes
 
     int k = inicio; // Índice inicial do subvetor mesclado
 
+    bool entrou = false;
+
     while(i < tamEsq && j < tamDir) { // Enquanto L e R tiverem elementos não mesclados
+        entrou = true;
         comparacoes++;
         trocas++;
         if(E[i] <= D[j]) {
@@ -30,7 +33,13 @@ void Merge(int V[], int inicio, int meio, int fim, int &trocas, int &comparacoes
         k++;
     }
 
+    if (!entrou)
+        comparacoes++;
+
+    entrou = false;
+
     while(i < tamEsq) { // Copia o restante de L, se houver
+        entrou = true;
         comparacoes++;
         trocas++;
         V[k] = E[i];
@@ -38,13 +47,22 @@ void Merge(int V[], int inicio, int meio, int fim, int &trocas, int &comparacoes
         k++;
     }
 
+    if (!entrou)
+        comparacoes++;
+
+    entrou = false;
+
     while(j < tamDir) { // Copia o restante de R, se houver
+        entrou = true;
         comparacoes++;
         trocas++;
         V[k] = D[j];
         j++;
         k++;
     }
+
+    if (!entrou)
+        comparacoes++;
 }
 
 void MergeSort(int V[], int inicio, int fim, int &trocas, int &comparecoes) {
