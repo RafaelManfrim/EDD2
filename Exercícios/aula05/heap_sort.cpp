@@ -2,31 +2,44 @@
 
 using namespace std;
 
-void Heapify(int A[], int tamanho, int i) {
-    int esquerda = 2 * i + 1;
-    int direita = 2 * i + 2;
-    int maior = i; // A raiz está em i.
-    if(esquerda < tamanho && A[esquerda] > A[maior])
+void Heapify(int vetor[], int tamanho, int index) {
+    int esquerda = 2 * index + 1;
+    int direita = 2 * index + 2;
+    int maior = index;
+
+    if(esquerda < tamanho && vetor[esquerda] > vetor[maior]) {
         maior = esquerda;
-    if(direita < tamanho && A[direita] > A[maior])
+    }
+
+    if (direita < tamanho && vetor[direita] > vetor[maior]) {
         maior = direita;
-    if(maior != i) {
-        int temp = A[i];
-        A[i] = A[maior];
-        A[maior] = temp;
-        Heapify(A, tamanho, maior);
+    }
+
+    if (maior != index) {
+        int temp = vetor[index];
+        vetor[index] = vetor[maior];
+        vetor[maior] = temp;
+
+        Heapify(vetor, tamanho, maior);
     }
 }
 
-void ConstroiHeapMaximo(int A[], int n) {
-    for(int i = n/2 - 1; i >= 0; i--)
-        Heapify(A, n, i);
+void ConstroiHeapMaximo(int vetor[], int tamanho) {
+    for(int i = tamanho/2 - 1; i >= 0; i--) {
+        Heapify(vetor, tamanho, i);
+    }
 }
 
-void HeapSort(int A[], int tamanho) {
-    ConstroiHeapMaximo(A, tamanho);
+void HeapSort(int vetor[], int tamanho) {
+    ConstroiHeapMaximo(vetor, tamanho);
 
-    // Lógica de Ordenação
+    for(int i = tamanho - 1; i >= 0; i--) {
+        int temp = vetor[0];
+        vetor[0] = vetor[i];
+        vetor[i] = temp;
+
+        Heapify(vetor, i, 0);
+    }
 }
 
 int main() {
