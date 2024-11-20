@@ -1,6 +1,3 @@
-#### Implemente a Árvore Binária de Busca e suas operações básicas em C/C++.
-
-```c++
 #include <iostream>
 
 using namespace std;
@@ -36,6 +33,16 @@ No* BuscaNaArvore(No* no, int valor) {
     return no;
 }
 
+No* BuscaRecursivaNaArvore(No* no, int valor) {
+    if(valor < no->valor) {
+        BuscaRecursivaNaArvore(no->no_esq, valor);
+    } else if (valor > no->valor) {
+        BuscaRecursivaNaArvore(no->no_dir, valor);
+    } else {
+        return no;
+    }
+}
+
 No* ArvoreMinimo(No* no) {
     while(no->no_esq != nullptr) {
         no = no->no_esq;
@@ -44,12 +51,28 @@ No* ArvoreMinimo(No* no) {
     return no;
 }
 
+No* ArvoreMinimoRecursivo(No* no) {
+    if(no->no_esq != nullptr) {
+        return ArvoreMinimoRecursivo(no->no_esq);
+    } else {
+        return no;
+    }
+}
+
 No* ArvoreMaximo(No* no) {
     while(no->no_dir != nullptr) {
         no = no->no_dir;
     }
 
     return no;
+}
+
+No* ArvoreMaximoRecursiva(No* no) {
+    if(no->no_dir != nullptr) {
+        return ArvoreMaximoRecursiva(no->no_dir);
+    } else {
+        return no;
+    }
 }
 
 void InserirNaArvore(ArvoreBinariaBusca* arvore, No* no) {
@@ -157,7 +180,7 @@ int main() {
     cout << "Posição na memória do menor nó: " << no_menor << ", valor: " << no_menor->valor << endl;
 
     No* no_maior = ArvoreMaximo(arvore->raiz);
-    cout << "Posição na memória do menor nó: " << no_maior << ", valor: " << no_maior->valor << endl;
+    cout << "Posição na memória do maior nó: " << no_maior << ", valor: " << no_maior->valor << endl;
 
     No* no_buscado = BuscaNaArvore(arvore->raiz, 7);
     cout << "Posição na memória do nó buscado: " << no_buscado << ", valor: " << no_buscado->valor << endl;
@@ -167,61 +190,18 @@ int main() {
     cout << "Percurso em Ordem sem o nó excluído: ";
     PercursoEmOrdem(arvore->raiz);
 
+    cout << endl;
+
+    No* no_buscado_recursivamente = BuscaNaArvore(arvore->raiz, 8);
+    cout << "Posição na memória do nó buscado recursivamente: " << no_buscado_recursivamente << ", valor: " << no_buscado_recursivamente->valor << endl;
+
+    no_menor = ArvoreMinimoRecursivo(arvore->raiz);
+    cout << "Posição na memória do menor nó: " << no_menor << ", valor: " << no_menor->valor << endl;
+
+    no_maior = ArvoreMaximoRecursiva(arvore->raiz);
+    cout << "Posição na memória do maior nó: " << no_maior << ", valor: " << no_maior->valor << endl;
+
     delete arvore;
 
     return 0;
 }
-```
-
-#### 2. Implemente uma função para encontrar o nó sucessor dada uma chave k.
-   O sucessor, dada uma chave k é o nó com a menor chave maior que k.
-   Também implemente uma função para encontrar o nó predecessor, este
-   sendo o nó com a maior chave menor que k.
-#### 3. Implemente a função de Busca recursivamente.
-
-```c++
-No* BuscaRecursivaNaArvore(No* no, int valor) {
-    if(valor < no->valor) {
-        BuscaRecursivaNaArvore(no->no_esq, valor);
-    } else if (valor > no->valor) {
-        BuscaRecursivaNaArvore(no->no_dir, valor);
-    } else {
-        return no;
-    }
-}
-```
-
-#### 4. Implemente as funções de encontrar mínimo e máximo recursivamente.
-
-```c++
-No* ArvoreMinimoRecursivo(No* no) {
-    if(no->no_esq != nullptr) {
-        return ArvoreMinimoRecursivo(no->no_esq);
-    } else {
-        return no;
-    }
-}
-
-No* ArvoreMaximoRecursiva(No* no) {
-    if(no->no_dir != nullptr) {
-        return ArvoreMaximoRecursiva(no->no_dir);
-    } else {
-        return no;
-    }
-}
-```
-
-#### 5. Implemente a função de Inserção recursivamente.
-
-```c++
-
-```
-
-#### 6. Está correto afirmar que se um nó em uma Árvore Binária de Busca tem
-   dois filhos, então seu sucessor não possui filho à esquerda e seu
-   predecessor não possui filho à direita. Por quê?
-7. Podemos criar um algoritmo de ordenação utilizando a Árvore Binária de
-   Busca. Basta inserir cada elemento na árvore usando a função de
-   Inserção e então executar a função de Percurso em Ordem para imprimir
-   os valores de maneira ordenada. Qual o pior caso deste algoritmo? Qual
-   o melhor caso? Demonstre os resultados.
