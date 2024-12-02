@@ -173,10 +173,12 @@ int main() {
 }
 ```
 
-#### 2. Implemente uma função para encontrar o nó sucessor dada uma chave k.
-   O sucessor, dada uma chave k é o nó com a menor chave maior que k.
-   Também implemente uma função para encontrar o nó predecessor, este
-   sendo o nó com a maior chave menor que k.
+#### 2. Implemente uma função para encontrar o nó sucessor dada uma chave k. O sucessor, dada uma chave k é o nó com a menor chave maior que k. Também implemente uma função para encontrar o nó predecessor, este sendo o nó com a maior chave menor que k.
+
+```c++
+
+```
+
 #### 3. Implemente a função de Busca recursivamente.
 
 ```c++
@@ -217,11 +219,22 @@ No* ArvoreMaximoRecursiva(No* no) {
 
 ```
 
-#### 6. Está correto afirmar que se um nó em uma Árvore Binária de Busca tem
-   dois filhos, então seu sucessor não possui filho à esquerda e seu
-   predecessor não possui filho à direita. Por quê?
-7. Podemos criar um algoritmo de ordenação utilizando a Árvore Binária de
-   Busca. Basta inserir cada elemento na árvore usando a função de
-   Inserção e então executar a função de Percurso em Ordem para imprimir
-   os valores de maneira ordenada. Qual o pior caso deste algoritmo? Qual
-   o melhor caso? Demonstre os resultados.
+#### 6. Está correto afirmar que se um nó em uma Árvore Binária de Busca tem dois filhos, então seu sucessor não possui filho à esquerda e seu predecessor não possui filho à direita. Por quê?
+
+```
+Sim, pois em uma Árvore Binária de Busca, o sucessor de um filho é o 
+elemento mais à esquerda dos elementos que estão a sua direita, se
+houvesse um elemento ainda mais à esquerda, esse elemento deveria ser 
+o sucessor, visto que seria maior do que a raíz e menor do que todos 
+os outros. O mesmo vale para o predecessor, que é o filho mais à 
+direita dos elementos que estão à esquerda do nó, se houvesse um 
+elemento ainda mais à direita, ele sim seria o predecessor, pois 
+continuaria sendo menor que o elemento raíz dessa busca e o maior 
+dentre os elementos à esquerda.
+```
+
+#### 7. Podemos criar um algoritmo de ordenação utilizando a Árvore Binária de Busca. Basta inserir cada elemento na árvore usando a função de Inserção e então executar a função de Percurso em Ordem para imprimir os valores de maneira ordenada. Qual o pior caso deste algoritmo? Qual o melhor caso? Demonstre os resultados.
+
+```
+
+```
