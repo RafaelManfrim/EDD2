@@ -1,7 +1,3 @@
-//
-// Created by manfrim on 21/08/24.
-//
-
 #include <iostream>
 
 using namespace std;

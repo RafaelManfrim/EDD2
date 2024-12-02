@@ -1,4 +1,3 @@
-
 #include <iostream>
 
 using namespace std;
@@ -18,15 +17,11 @@ int main() {
     int positivos_acumulados = 0;
     int positivos_aplicar = 0;
 
-    cout << "Começando a Pizza" << endl;
     while(true) {
         if(rodada_pizza == 2 && pedaco == inicio) {
             pontuacao += positivos_aplicar;
             break;
         }
-
-        cout << "Pedaço " << pedaco + 1 << " => " << pizza[pedaco] << endl;
-//        cout << " <<< Pontuação: " << pontuacao << " - Negativos acumulados: " << negativos_acumulados << " - Positivos acumulados: " << positivos_acumulados << endl;
 
         if(pizza[pedaco] < 0) {
             if(pontuacao >= 0) {
@@ -64,12 +59,12 @@ int main() {
                 break;
             }
 
-            cout << "Começando a Pizza Novamente" << endl;
             rodada_pizza++;
             pedaco = 0;
         }
     }
 
+    cout << "Pizza tem " << tamanho_pizza << " pedaços" << endl;
     cout << "Início: " << inicio + 1 << endl;
     cout << "Fim: " << fim + 1 << endl;
     cout << "Pontuacao: " << pontuacao;
