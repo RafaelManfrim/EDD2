@@ -185,59 +185,43 @@ void inserir(ArvoreAVL* arvore, int valor) {
 }
 
 No* delecao(ArvoreAVL* arvore, No* no, int valor) {
-    if (no == nullptr) return no;
+    if (no == nullptr) return nullptr;
 
     if (valor < no->valor) {
-        delecao(arvore, no->no_esq, valor);
+        no->no_esq = delecao(arvore, no->no_esq, valor);
     } else if (valor > no->valor) {
-        delecao(arvore, no->no_dir, valor);
+        no->no_dir = delecao(arvore, no->no_dir, valor);
     } else {
-        if (no->no_esq == nullptr && no->no_dir == nullptr) { //Nó folha
-            if (no->no_pai == nullptr) {
-                arvore->raiz = nullptr;
-            } else if (no == no->no_pai->no_esq) {
-                no->no_pai->no_esq = nullptr;
-            } else {
-                no->no_pai->no_dir = nullptr;
-            }
+        if (no->no_esq == nullptr && no->no_dir == nullptr) { // Nó folha
             delete no;
-        } else if (no->no_esq == nullptr || no->no_dir == nullptr) { // Um filho
+            return nullptr;
+        }
+        if (no->no_esq == nullptr || no->no_dir == nullptr) { // Caso 2: Um único filho
             No* filho = (no->no_esq != nullptr) ? no->no_esq : no->no_dir;
-
-            if (no->no_pai == nullptr) {
-                arvore->raiz = filho;
-            } else if (no == no->no_pai->no_esq) {
-                no->no_pai->no_esq = filho;
-            } else {
-                no->no_pai->no_dir = filho;
-            }
             filho->no_pai = no->no_pai;
             delete no;
-        } else { // Dois filhos
-            No* sucessor = EncontraSucessor(no);
-            no->valor = sucessor->valor;
-            delecao(arvore, sucessor, sucessor->valor);
+            return filho;
         }
+        // Dois filhos
+        No* sucessor = EncontraSucessor(no);
+        no->valor = sucessor->valor;
+        no->no_dir = delecao(arvore, no->no_dir, sucessor->valor);
     }
 
-    if (no == nullptr) return no;
+    int bal_esq = no->no_esq ? no->no_esq->balanceamento : -1;
+    int bal_dir = no->no_dir ? no->no_dir->balanceamento : -1;
+    no->balanceamento = bal_dir - bal_esq;
 
-    no->balanceamento = 1 + max(no->no_esq->balanceamento, no->no_dir->balanceamento);
-
-    if (no->balanceamento > 1 && no->no_esq->balanceamento >= 0)
-        rotacao_a_direita(arvore, no);
-
-    if (no->balanceamento > 1 && no->no_esq->balanceamento < 0) {
-        rotacao_a_esquerda(arvore, no->no_esq);
-        rotacao_a_direita(arvore, no);
-    }
-
-    if (no->balanceamento < -1 && no->no_dir->balanceamento <= 0)
+    if (no->balanceamento > 1) { // Caso direita desbalanceada
+        if (no->no_dir->balanceamento < 0) {
+            rotacao_a_direita(arvore, no->no_dir);
+        }
         rotacao_a_esquerda(arvore, no);
-
-    if (no->balanceamento < -1 && no->no_dir->balanceamento > 0) {
-        rotacao_a_direita(arvore, no->no_dir);
-        rotacao_a_esquerda(arvore, no);
+    } else if (no->balanceamento < -1) { // Caso esquerda desbalanceada
+        if (no->no_esq->balanceamento > 0) {
+            rotacao_a_esquerda(arvore, no->no_esq);
+        }
+        rotacao_a_direita(arvore, no);
     }
 
     return no;
